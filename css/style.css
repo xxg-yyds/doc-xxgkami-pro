@@ -686,6 +686,40 @@ td {
   color: var(--text);
 }
 
+/* QQ group join */
+.qq-group-join {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 24px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.qq-group-join.compact {
+  margin: 12px 0 0;
+  padding: 10px;
+  background: transparent;
+  border: none;
+}
+
+.qq-group-join a {
+  display: inline-block;
+  line-height: 0;
+}
+
+.qq-group-join img {
+  display: block;
+  height: auto;
+}
+
+.qq-group-tip {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
 /* Doc figures */
 .doc-figure {
   margin: 20px 0;
