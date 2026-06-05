@@ -1,0 +1,23 @@
+{
+	"nodes":[
+		{"id":"b62acc87c3d9646e","type":"group","x":-2260,"y":-1460,"width":2810,"height":1184,"label":"小小怪工作流教程"},
+		{"id":"a03791647237a1a3","type":"text","text":"安装宝塔面板","x":-2240,"y":-857,"width":250,"height":60,"color":"3"},
+		{"id":"1d83ab66155c63a2","type":"text","text":"- 登录宝塔面板。\n- 确保已安装 **Java** 环境 (必须安装 JDK 17 或更高版本)。\n- 确保已安装 **MySQL** 数据库 (必须 8.0)。\n- 确保已安装 **Nginx** (用于反向代理)。\n- 确保已安装 **Redis** (用于缓存)。\n- 确保已安装 **Node.js** (如果需要自行构建前端)。","x":-1800,"y":-1080,"width":250,"height":507,"color":"3"},
+		{"id":"8ed0f37c200952dd","type":"text","text":"在群文件下载安装包","x":-1380,"y":-1110,"width":250,"height":60,"color":"3"},
+		{"id":"56eda6d94136ae13","type":"text","text":"国内开源地址：https://gitee.com/xxg-yyds/xxgkami-pro 国外开源地址：https://github.com/xiaoxiaoguai-yyds/xxgkami-pro 部署教程：https://doc.xxgkami.com 演示站：https://demo.xxgkami.com/","x":-1380,"y":-917,"width":250,"height":420,"color":"3"},
+		{"id":"6c93a2510b7f0806","type":"text","text":"上传dist.zip文件进行解压\n编辑backend-0.0.1-SNAPSHOT.jar","x":-904,"y":-919,"width":244,"height":131,"color":"3"},
+		{"id":"f28701251db22044","type":"text","text":"使用自带zpi解压软件进行编辑\nBOOT-INF\\classes\\内的application.properties","x":-440,"y":-948,"width":250,"height":160,"color":"3"},
+		{"id":"b5bba0824a05e3b9","type":"text","text":"打开网站-java项目\n在宝塔面板左侧菜单点击 **网站** -> **Java项目** 。\n2. 点击 **添加Java项目** 。\n3. **项目类型**: SpringBoot。\n4. **项目Jar路径**: 选择上传的 `xxgkami-pro.jar` 。\n5. **项目端口**: 默认为 8080 (如果冲突请修改配置文件或此处)。\n6. **启动用户**: 修改为 `root` 。\n7. **守护进程**: 勾选 `项目意外停止时自动重启` 。\n8. **域名**: 填写您的域名。\n9. 点击 **提交** 。","x":-80,"y":-1228,"width":260,"height":608,"color":"3"},
+		{"id":"c1aa57be7c140954","type":"text","text":"编辑php项目，选择自己的网站名字，打开配置文件找到    location ~ .*\\.(gif|jpg|jpeg|png|bmp|swf)$\n    {\n        expires      30d;\n        error_log /dev/null;\n        access_log /dev/null;\n    }\n下面填写\n\tlocation /api/ {\n\t    proxy_pass http://127.0.0.1:8080/api/;\n\t    proxy_set_header Host $host;\n\t    proxy_set_header X-Real-IP $remote_addr;\n\t    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n\t    \n\t    # 禁用缓存，防止API数据不刷新\n\t    add_header Cache-Control \"no-cache, no-store\";\n\t}\n点击保存","x":280,"y":-1440,"width":250,"height":1144,"color":"3"}
+	],
+	"edges":[
+		{"id":"87b5619dbc0d931d","fromNode":"a03791647237a1a3","fromSide":"right","toNode":"1d83ab66155c63a2","toSide":"left"},
+		{"id":"ad02c53c0abfd68c","fromNode":"1d83ab66155c63a2","fromSide":"right","toNode":"8ed0f37c200952dd","toSide":"left"},
+		{"id":"d74ea1575f9f03fc","fromNode":"1d83ab66155c63a2","fromSide":"right","toNode":"56eda6d94136ae13","toSide":"left"},
+		{"id":"08799059768e7d05","fromNode":"56eda6d94136ae13","fromSide":"right","toNode":"6c93a2510b7f0806","toSide":"left"},
+		{"id":"c68b6d70b54a14a2","fromNode":"8ed0f37c200952dd","fromSide":"right","toNode":"6c93a2510b7f0806","toSide":"left"},
+		{"id":"7655154131910660","fromNode":"6c93a2510b7f0806","fromSide":"right","toNode":"f28701251db22044","toSide":"left"},
+		{"id":"86f4befe6298732f","fromNode":"f28701251db22044","fromSide":"right","toNode":"b5bba0824a05e3b9","toSide":"left"},
+		{"id":"d7194fdfe19d760b","fromNode":"b5bba0824a05e3b9","fromSide":"right","toNode":"c1aa57be7c140954","toSide":"left"}
+	]
+}

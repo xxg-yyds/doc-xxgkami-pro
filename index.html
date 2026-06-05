@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="小小怪卡密验证系统 Pro 官方教程 - 部署指南、视频教程、功能说明">
+  <meta name="keywords" content="小小怪卡密,卡密验证,XXG-KAMI,部署教程">
+  <title>小小怪卡密 - 官方教程</title>
+  <link rel="icon" href="image/icon.png" type="image/png">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+    })();
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <button class="sidebar-toggle" aria-label="打开目录">&#9776;</button>
+    <a href="#overview" class="topbar-logo">
+      <img src="image/icon.png" alt="小小怪卡密">
+      <span>小小怪卡密教程</span>
+    </a>
+    <nav class="topbar-links">
+      <a href="https://www.xxgkami.com/" target="_blank" rel="noopener">官网</a>
+      <a href="https://demo.xxgkami.com/" target="_blank" rel="noopener">体验地址</a>
+      <a href="https://github.com/xxg-yyds/xxgkami-pro" target="_blank" rel="noopener">GitHub</a>
+      <button class="theme-toggle" type="button" aria-label="切换主题">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <span class="theme-toggle-text"></span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="sidebar-overlay"></div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <nav>
+        <ul class="sidebar-nav">
+          <li class="sidebar-group">
+            <span class="sidebar-group-title">开始</span>
+            <a href="#overview" class="sidebar-link">概述</a>
+            <a href="#video" class="sidebar-link">视频教程</a>
+          </li>
+          <li class="sidebar-group">
+            <span class="sidebar-group-title">快速开始</span>
+            <a href="#requirements" class="sidebar-link">环境要求</a>
+          </li>
+          <li class="sidebar-group">
+            <span class="sidebar-group-title">工作流教程</span>
+            <a href="#workflow-overview" class="sidebar-link">流程概览</a>
+            <a href="#workflow-bt-install" class="sidebar-link sub">安装宝塔面板</a>
+            <a href="#workflow-env" class="sidebar-link sub">环境准备</a>
+            <a href="#workflow-download" class="sidebar-link sub">获取安装包</a>
+            <a href="#workflow-upload" class="sidebar-link sub">上传与解压</a>
+            <a href="#workflow-jar-config" class="sidebar-link sub">编辑 Jar 配置</a>
+            <a href="#workflow-java" class="sidebar-link sub">添加 Java 项目</a>
+            <a href="#workflow-nginx" class="sidebar-link sub">配置 Nginx</a>
+            <a href="#workflow-init" class="sidebar-link sub">系统初始化</a>
+            <a href="#workflow-init-env" class="sidebar-link sub">环境自动检测</a>
+            <a href="#workflow-init-mysql" class="sidebar-link sub">数据库版本选择</a>
+          </li>
+          <li class="sidebar-group">
+            <span class="sidebar-group-title">部署指南</span>
+            <a href="#deploy-script" class="sidebar-link sub">一键脚本安装</a>
+            <a href="#deploy-file" class="sidebar-link sub">本地文件部署</a>
+            <a href="#deploy-manual" class="sidebar-link sub">手动编译部署</a>
+          </li>
+          <li class="sidebar-group">
+            <span class="sidebar-group-title">功能介绍</span>
+            <a href="#features-admin" class="sidebar-link sub">管理员后台</a>
+            <a href="#features-user" class="sidebar-link sub">用户中心</a>
+            <a href="#features-api" class="sidebar-link sub">开发者 API</a>
+          </li>
+          <li class="sidebar-group">
+            <span class="sidebar-group-title">其他</span>
+            <a href="#faq" class="sidebar-link">常见问题</a>
+            <a href="#contact" class="sidebar-link">联系我们</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="content">
+
+      <!-- 概述 -->
+      <section id="overview" class="doc-section">
+        <h1>小小怪卡密验证系统 Pro</h1>
+        <p class="lead">
+          全新一代卡密验证解决方案，完全免费开源。本教程将带你从零完成系统部署与使用。
+        </p>
+        <div class="meta-tags">
+          <span class="tag">Vue 3 + Spring Boot 3</span>
+          <span class="tag">完全免费</span>
+          <span class="tag">Apache-2.0 开源</span>
+          <span class="tag">团队持续维护</span>
+        </div>
+        <div class="site-links">
+          <div class="site-link-item">
+            <span class="site-link-label">官网</span>
+            <a href="https://www.xxgkami.com/" target="_blank" rel="noopener">www.xxgkami.com</a>
+          </div>
+          <div class="site-link-item">
+            <span class="site-link-label">体验地址</span>
+            <a href="https://demo.xxgkami.com/" target="_blank" rel="noopener">demo.xxgkami.com</a>
+          </div>
+        </div>
+        <div class="action-row">
+          <a href="https://www.xxgkami.com/" class="btn btn-primary" target="_blank" rel="noopener">访问官网</a>
+          <a href="https://demo.xxgkami.com/" class="btn btn-outline" target="_blank" rel="noopener">在线体验</a>
+          <a href="https://github.com/xxg-yyds/xxgkami-pro" class="btn btn-outline" target="_blank" rel="noopener">GitHub 仓库</a>
+        </div>
+      </section>
+
+      <!-- 视频教程 -->
+      <section id="video" class="doc-section">
+        <h2>视频教程</h2>
+        <p class="lead">跟随视频一步步完成小小怪卡密的安装与配置。</p>
+        <div class="video-wrapper">
+          <iframe
+            src="https://player.bilibili.com/player.html?isOutside=true&aid=116694429210707&bvid=BV1Hs766FE4j&cid=38866389997&p=1&high_quality=1&danmaku=0"
+            scrolling="no"
+            border="0"
+            frameborder="no"
+            framespacing="0"
+            allowfullscreen="true">
+          </iframe>
+        </div>
+        <p class="video-tip">
+          若视频无法播放，请前往 B 站观看：
+          <a href="https://www.bilibili.com/video/BV1Hs766FE4j" target="_blank" rel="noopener">BV1Hs766FE4j</a>
+        </p>
+      </section>
+
+      <!-- 环境要求 -->
+      <section id="requirements" class="doc-section">
+        <h2>环境要求</h2>
+        <p class="lead">部署前请确认服务器满足以下条件。</p>
+        <table>
+          <thead>
+            <tr>
+              <th>组件</th>
+              <th>版本要求</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>操作系统</td>
+              <td>CentOS 7+ / Debian 10+ / Ubuntu 20.04+</td>
+              <td>Linux 服务器（推荐）</td>
+            </tr>
+            <tr>
+              <td>JDK</td>
+              <td>17+（推荐 20）</td>
+              <td>后端运行环境</td>
+            </tr>
+            <tr>
+              <td>MySQL</td>
+              <td>8.0 或 5.6+</td>
+              <td>支持 MariaDB（5.6+ 兼容模式）</td>
+            </tr>
+            <tr>
+              <td>Redis</td>
+              <td>任意稳定版</td>
+              <td>缓存服务</td>
+            </tr>
+            <tr>
+              <td>Nginx</td>
+              <td>任意稳定版</td>
+              <td>反向代理与静态资源</td>
+            </tr>
+            <tr>
+              <td>Node.js</td>
+              <td>18+（可选）</td>
+              <td>自行构建前端时需要</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 工作流：概览 -->
+      <section id="workflow-overview" class="doc-section">
+        <h2>工作流教程</h2>
+        <p class="lead">以下流程基于宝塔面板部署，按顺序完成即可上线小小怪卡密系统。</p>
+
+        <div class="workflow-chart">
+          <div class="workflow-step">
+            <span class="workflow-num">1</span>
+            <span class="workflow-label">安装宝塔</span>
+          </div>
+          <div class="workflow-arrow" aria-hidden="true"></div>
+          <div class="workflow-step">
+            <span class="workflow-num">2</span>
+            <span class="workflow-label">环境准备</span>
+          </div>
+          <div class="workflow-arrow" aria-hidden="true"></div>
+          <div class="workflow-step">
+            <span class="workflow-num">3</span>
+            <span class="workflow-label">获取安装包</span>
+          </div>
+          <div class="workflow-arrow" aria-hidden="true"></div>
+          <div class="workflow-step">
+            <span class="workflow-num">4</span>
+            <span class="workflow-label">上传解压</span>
+          </div>
+          <div class="workflow-arrow" aria-hidden="true"></div>
+          <div class="workflow-step">
+            <span class="workflow-num">5</span>
+            <span class="workflow-label">编辑配置</span>
+          </div>
+          <div class="workflow-arrow" aria-hidden="true"></div>
+          <div class="workflow-step">
+            <span class="workflow-num">6</span>
+            <span class="workflow-label">Java 项目</span>
+          </div>
+          <div class="workflow-arrow" aria-hidden="true"></div>
+          <div class="workflow-step">
+            <span class="workflow-num">7</span>
+            <span class="workflow-label">Nginx 代理</span>
+          </div>
+          <div class="workflow-arrow" aria-hidden="true"></div>
+          <div class="workflow-step">
+            <span class="workflow-num">8</span>
+            <span class="workflow-label">系统初始化</span>
+          </div>
+        </div>
+
+        <div class="note">
+          建议配合<a href="#video">视频教程</a>一起操作。群文件与开源仓库均可获取安装包，任选其一即可。
+        </div>
+      </section>
+
+      <!-- 工作流：安装宝塔 -->
+      <section id="workflow-bt-install" class="doc-section">
+        <h2>安装宝塔面板</h2>
+        <p class="lead">在服务器上安装宝塔面板，作为后续部署的管理入口。</p>
+        <ol class="steps">
+          <li>
+            <strong>安装宝塔</strong>
+            前往 <a href="https://www.bt.cn/new/download.html" target="_blank" rel="noopener">宝塔官网</a> 获取对应系统的安装命令，在服务器终端执行并完成初始化。
+          </li>
+          <li>
+            <strong>登录面板</strong>
+            安装完成后记录面板地址、用户名与密码，通过浏览器登录宝塔面板。
+          </li>
+        </ol>
+      </section>
+
+      <!-- 工作流：环境准备 -->
+      <section id="workflow-env" class="doc-section">
+        <h2>环境准备</h2>
+        <p class="lead">登录宝塔面板后，在「软件商店」中安装以下组件。</p>
+        <ul class="check-list">
+          <li><strong>Java</strong> — 必须安装 JDK 17 或更高版本（推荐 JDK 20）</li>
+          <li><strong>MySQL</strong> — 8.0 或 5.6 及以上（MariaDB 请选择 5.6+ 兼容）</li>
+          <li><strong>Nginx</strong> — 用于反向代理与静态资源托管</li>
+          <li><strong>Redis</strong> — 用于缓存</li>
+          <li><strong>Node.js</strong> — 如需自行构建前端时安装</li>
+        </ul>
+      </section>
+
+      <!-- 工作流：获取安装包 -->
+      <section id="workflow-download" class="doc-section">
+        <h2>获取安装包</h2>
+        <p class="lead">可通过 QQ 群文件或开源仓库两种方式获取部署文件。</p>
+
+        <h3>方式一：群文件下载</h3>
+        <p>加入官方 QQ 群 <strong>1050160397</strong>，在群文件中下载最新安装包（含 <span class="inline-code">dist.zip</span> 与后端 jar 包）。</p>
+
+        <h3>方式二：开源仓库下载</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>类型</th>
+              <th>地址</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>国内开源（Gitee）</td>
+              <td><a href="https://gitee.com/xiaoxiaoguai-yyds/xxgkami-pro" target="_blank" rel="noopener">gitee.com/xiaoxiaoguai-yyds/xxgkami-pro</a></td>
+            </tr>
+            <tr>
+              <td>国外开源（GitHub）</td>
+              <td><a href="https://github.com/xxg-yyds/xxgkami-pro" target="_blank" rel="noopener">github.com/xxg-yyds/xxgkami-pro</a></td>
+            </tr>
+            <tr>
+              <td>部署教程</td>
+              <td><a href="https://doc.xxgkami.com/" target="_blank" rel="noopener">doc.xxgkami.com</a></td>
+            </tr>
+            <tr>
+              <td>演示站</td>
+              <td><a href="https://demo.xxgkami.com/" target="_blank" rel="noopener">demo.xxgkami.com</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>也可在 <a href="https://github.com/xxg-yyds/xxgkami-pro/releases" target="_blank" rel="noopener">GitHub Releases</a> 页面直接下载编译好的 <span class="inline-code">dist.zip</span> 与 <span class="inline-code">backend-0.0.1-SNAPSHOT.jar</span>。</p>
+      </section>
+
+      <!-- 工作流：上传解压 -->
+      <section id="workflow-upload" class="doc-section">
+        <h2>上传与解压</h2>
+        <p class="lead">将前端与后端文件上传至服务器对应目录。</p>
+        <ol class="steps">
+          <li>
+            <strong>上传 dist.zip</strong>
+            在宝塔「文件」管理中，进入网站根目录（如 <span class="inline-code">/www/wwwroot/你的域名/</span>），上传 <span class="inline-code">dist.zip</span> 并解压。
+          </li>
+          <li>
+            <strong>上传后端 Jar</strong>
+            将 <span class="inline-code">backend-0.0.1-SNAPSHOT.jar</span>（或重命名后的 <span class="inline-code">xxgkami-pro.jar</span>）上传至服务器，建议放在独立目录便于管理。
+          </li>
+        </ol>
+      </section>
+
+      <!-- 工作流：编辑 Jar 配置 -->
+      <section id="workflow-jar-config" class="doc-section">
+        <h2>编辑 Jar 配置</h2>
+        <p class="lead">修改后端 Jar 包内的数据库等连接配置。</p>
+        <ol class="steps">
+          <li>
+            <strong>用压缩软件打开 Jar</strong>
+            Jar 本质是 zip 格式，使用 WinRAR、7-Zip 等工具直接打开 <span class="inline-code">backend-0.0.1-SNAPSHOT.jar</span>，无需先解压整个文件。
+          </li>
+          <li>
+            <strong>编辑配置文件</strong>
+            找到并编辑路径：
+            <pre data-copy><code>BOOT-INF\classes\application.properties</code></pre>
+            配置 MySQL 数据库连接、Redis 地址等参数，保存后关闭压缩软件（会自动更新 Jar 内文件）。数据库版本支持 MySQL 8.0 或 5.6+，具体导入方式可在首次访问时的系统初始化向导中选择。
+          </li>
+          <li>
+            <strong>手动导入（可选）</strong>
+            若跳过向导，也可在 MySQL 中手动创建数据库并导入 <span class="inline-code">kami.sql</span>。使用 MySQL 5.6 / MariaDB 时，系统会在初始化时自动转译为兼容脚本。
+          </li>
+        </ol>
+      </section>
+
+      <!-- 工作流：Java 项目 -->
+      <section id="workflow-java" class="doc-section">
+        <h2>添加 Java 项目</h2>
+        <p class="lead">在宝塔面板中创建 SpringBoot 项目并启动后端服务。</p>
+        <ol class="steps">
+          <li>
+            <strong>进入 Java 项目管理</strong>
+            在宝塔左侧菜单点击「网站」→「Java 项目」。
+          </li>
+          <li>
+            <strong>添加 Java 项目</strong>
+            点击「添加 Java 项目」，按以下参数填写：
+          </li>
+        </ol>
+        <table>
+          <thead>
+            <tr>
+              <th>配置项</th>
+              <th>填写说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>项目类型</td>
+              <td>SpringBoot</td>
+            </tr>
+            <tr>
+              <td>项目 Jar 路径</td>
+              <td>选择上传的 <span class="inline-code">xxgkami-pro.jar</span> 或 <span class="inline-code">backend-0.0.1-SNAPSHOT.jar</span></td>
+            </tr>
+            <tr>
+              <td>项目端口</td>
+              <td>默认 <span class="inline-code">8080</span>（如有冲突请修改此处或配置文件）</td>
+            </tr>
+            <tr>
+              <td>启动用户</td>
+              <td><span class="inline-code">root</span></td>
+            </tr>
+            <tr>
+              <td>守护进程</td>
+              <td>勾选「项目意外停止时自动重启」</td>
+            </tr>
+            <tr>
+              <td>域名</td>
+              <td>填写您的域名</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>确认无误后点击「提交」，等待项目启动成功。</p>
+      </section>
+
+      <!-- 工作流：Nginx -->
+      <section id="workflow-nginx" class="doc-section">
+        <h2>配置 Nginx 反向代理</h2>
+        <p class="lead">为网站添加 API 反向代理，使前端能正常访问后端接口。</p>
+        <ol class="steps">
+          <li>
+            <strong>打开网站配置</strong>
+            在宝塔「网站」中找到您的站点，点击「设置」→「配置文件」。
+          </li>
+          <li>
+            <strong>定位插入位置</strong>
+            找到如下静态资源缓存配置块：
+            <pre data-copy><code>location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+{
+    expires      30d;
+    error_log /dev/null;
+    access_log /dev/null;
+}</code></pre>
+          </li>
+          <li>
+            <strong>在其下方添加 API 代理</strong>
+            <pre data-copy><code>location /api/ {
+    proxy_pass http://127.0.0.1:8080/api/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    # 禁用缓存，防止 API 数据不刷新
+    add_header Cache-Control "no-cache, no-store";
+}</code></pre>
+          </li>
+          <li>
+            <strong>保存并生效</strong>
+            点击「保存」，Nginx 会自动重载配置。访问您的域名，首次打开将进入<a href="#workflow-init">系统初始化向导</a>完成数据库配置。
+          </li>
+        </ol>
+      </section>
+
+      <!-- 工作流：系统初始化 -->
+      <section id="workflow-init" class="doc-section">
+        <h2>系统初始化</h2>
+        <p class="lead">前后端部署完成并访问站点后，首次打开会进入「系统初始化向导」。向导将自动检测运行环境并完成数据库配置，完成后不再显示本页。</p>
+
+        <div class="init-steps">
+          <span class="init-step done">1. 环境检测</span>
+          <span class="init-step">2. MySQL 版本</span>
+          <span class="init-step">3. 数据库账号</span>
+          <span class="init-step">4. 安装策略</span>
+          <span class="init-step">5. 完成</span>
+        </div>
+      </section>
+
+      <section id="workflow-init-env" class="doc-section">
+        <h2>环境自动检测</h2>
+        <p class="lead">向导第一步会自动检测当前服务器环境，无需手动填写。</p>
+
+        <figure class="doc-figure">
+          <img src="image/image.png" alt="系统初始化向导 - 环境检测界面">
+          <figcaption>系统初始化向导 — 环境检测</figcaption>
+        </figure>
+
+        <p>检测项包括：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>检测项</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>JAVA</td>
+              <td>自动识别已安装的 JDK 版本</td>
+            </tr>
+            <tr>
+              <td>操作系统</td>
+              <td>显示当前 Linux 内核版本</td>
+            </tr>
+            <tr>
+              <td>REDIS</td>
+              <td>检测 Redis 是否在线（如 localhost:6379）</td>
+            </tr>
+            <tr>
+              <td>MySQL 客户端</td>
+              <td>检测 mysql / mysqldump 是否可用</td>
+            </tr>
+            <tr>
+              <td>当前 JDBC 数据库</td>
+              <td>读取 application.properties 中的连接，显示版本与表数量</td>
+            </tr>
+            <tr>
+              <td>种子 SQL</td>
+              <td>检测 kami.sql 是否存在，并根据数据库版本给出推荐选项</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note">
+          若系统已安装过，可点击「我已安装系统，检测数据库更新」进行增量更新检测，无需重新走完整安装流程。
+        </div>
+      </section>
+
+      <section id="workflow-init-mysql" class="doc-section">
+        <h2>数据库版本选择</h2>
+        <p class="lead">第二步根据实际安装的 MySQL / MariaDB 版本选择对应脚本，系统提供两种方式。</p>
+
+        <figure class="doc-figure">
+          <img src="image/772eeadb-168a-41db-a05d-2ec3767d0592.png" alt="系统初始化向导 - MySQL 版本选择界面">
+          <figcaption>系统初始化向导 — MySQL 版本选择</figcaption>
+        </figure>
+
+        <div class="option-grid">
+          <div class="option-card">
+            <h3>MySQL 5.0+ / 5.6+ / MariaDB</h3>
+            <p>自动从 <span class="inline-code">kami.sql</span> 转译为 5.6 兼容脚本后导入。适用于 MySQL 5.6、5.7 及 MariaDB 等较低版本环境。</p>
+          </div>
+          <div class="option-card">
+            <h3>MySQL 8.0 及以上</h3>
+            <p>直接使用 <span class="inline-code">kami.sql</span> 原文件导入，适用于 MySQL 8.0+ 环境。</p>
+          </div>
+        </div>
+
+        <div class="note">
+          MariaDB 用户请选择「MySQL 5.0+ / 5.6+ / MariaDB」兼容模式。选择完成后继续填写数据库账号与安装策略，向导会自动完成建表与初始化。
+        </div>
+      </section>
+
+      <!-- 部署：一键脚本 -->
+      <section id="deploy-script" class="doc-section">
+        <h2>一键脚本安装</h2>
+        <p class="lead">适用于 CentOS 7+ / Debian 10+ / Ubuntu 20.04+，全自动配置 JDK、MySQL、Nginx 等环境。推荐首选此方式。</p>
+
+        <h3>国内服务器（Gitee 源）</h3>
+        <pre data-copy><code>curl -O https://gitee.com/xiaoxiaoguai-yyds/xxgkami-pro/raw/master/install.sh && chmod +x install.sh && sudo ./install.sh</code></pre>
+
+        <h3>海外服务器（GitHub 源）</h3>
+        <pre data-copy><code>curl -O https://raw.githubusercontent.com/xxg-yyds/xxgkami-pro/refs/heads/master/install.sh && chmod +x install.sh && sudo ./install.sh</code></pre>
+
+        <div class="note">
+          脚本会自动检测网络环境、安装依赖、编译前后端、配置 Systemd 开机自启，以及 Nginx 反向代理。
+        </div>
+      </section>
+
+      <!-- 部署：本地文件 -->
+      <section id="deploy-file" class="doc-section">
+        <h2>本地文件部署</h2>
+        <p class="lead">适用于无法在服务器编译、或希望直接上传制品快速上线的场景。</p>
+
+        <ol class="steps">
+          <li>
+            <strong>获取部署文件</strong>
+            从 <a href="https://github.com/xxg-yyds/xxgkami-pro/releases" target="_blank" rel="noopener">GitHub Releases</a> 下载最新的 <span class="inline-code">backend.jar</span> 和 <span class="inline-code">dist.zip</span>，或在官方 QQ 群（1050160397）获取。
+          </li>
+          <li>
+            <strong>数据库初始化</strong>
+            首次访问站点，通过<a href="#workflow-init">系统初始化向导</a>完成数据库导入。支持 MySQL 8.0 或 5.6+，也可手动导入 <span class="inline-code">kami.sql</span>。
+          </li>
+          <li>
+            <strong>启动后端</strong>
+            <pre data-copy><code>nohup java -jar backend.jar > backend.log 2>&1 &</code></pre>
+            默认监听 <span class="inline-code">8080</span>，上下文路径为 <span class="inline-code">/api</span>。
+          </li>
+          <li>
+            <strong>部署前端</strong>
+            将 <span class="inline-code">dist.zip</span> 解压到网站根目录（如 <span class="inline-code">/www/wwwroot/your-domain/</span>）。
+          </li>
+          <li>
+            <strong>配置 Nginx</strong>
+            <pre data-copy><code>location /api {
+    proxy_pass http://127.0.0.1:8080;
+}</code></pre>
+            <div class="note">
+              注意：<span class="inline-code">proxy_pass</span> 末尾不要加 <span class="inline-code">/</span>，否则会去掉 <span class="inline-code">/api</span> 前缀导致 404。
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 部署：手动编译 -->
+      <section id="deploy-manual" class="doc-section">
+        <h2>手动编译部署</h2>
+        <p class="lead">适用于开发者或需要深度定制的场景。前提：JDK 20+、Maven 3.8+、Node.js 18+、MySQL 8.0 或 5.6+</p>
+
+        <h3>克隆代码</h3>
+        <pre data-copy><code>git clone https://github.com/xxg-yyds/xxgkami-pro.git
+cd xxgkami-pro</code></pre>
+
+        <h3>后端编译</h3>
+        <pre data-copy><code>cd backend
+# 修改 src/main/resources/application.properties 中的数据库配置
+mvn clean package -DskipTests
+java -jar target/backend-0.0.1-SNAPSHOT.jar</code></pre>
+
+        <h3>前端编译</h3>
+        <pre data-copy><code>cd ../
+npm install
+npm run build
+# 构建产物位于 dist/ 目录，使用 Nginx 托管</code></pre>
+      </section>
+
+      <!-- 功能：管理员后台 -->
+      <section id="features-admin" class="doc-section">
+        <h2>管理员后台</h2>
+        <p class="lead">提供完整的卡密管理与系统配置能力。</p>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <h4>数据概览</h4>
+            <p>实时统计面板，掌控全局数据</p>
+          </div>
+          <div class="feature-item">
+            <h4>卡密管理</h4>
+            <p>批量生成、导出、状态管理，支持时间卡/次数卡</p>
+          </div>
+          <div class="feature-item">
+            <h4>订单管理</h4>
+            <p>订单实时监控、状态跟踪、补单操作</p>
+          </div>
+          <div class="feature-item">
+            <h4>API 管理</h4>
+            <p>接口密钥生成、权限控制、WebHook 回调</p>
+          </div>
+          <div class="feature-item">
+            <h4>安全中心</h4>
+            <p>IP 黑白名单、一机一码、访问日志审计</p>
+          </div>
+          <div class="feature-item">
+            <h4>系统设置</h4>
+            <p>网站信息、支付接口、邮件通知配置</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 功能：用户中心 -->
+      <section id="features-user" class="doc-section">
+        <h2>用户中心</h2>
+        <p class="lead">面向终端用户的卡密购买与验证功能。</p>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <h4>购买中心</h4>
+            <p>在线选购卡密，支持多种支付方式</p>
+          </div>
+          <div class="feature-item">
+            <h4>卡密验证</h4>
+            <p>快速验证卡密有效性，查看使用说明</p>
+          </div>
+          <div class="feature-item">
+            <h4>我的卡密</h4>
+            <p>已购卡密历史记录，一键复制</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 功能：开发者 API -->
+      <section id="features-api" class="doc-section">
+        <h2>开发者 API</h2>
+        <p class="lead">提供标准化 RESTful 接口，支持卡密核销、状态查询、WebHook 回调，API Key 签名认证保障安全。</p>
+        <pre data-copy><code># 卡密核销示例 (GET)
+curl "https://your-domain.com/api/open/use_card?api_key=YOUR_KEY&card_key=YOUR_CARD&machine_code=DEVICE_ID"</code></pre>
+      </section>
+
+      <!-- 常见问题 -->
+      <section id="faq" class="doc-section">
+        <h2>常见问题</h2>
+
+        <div class="faq-item">
+          <h3>API 请求返回 404？</h3>
+          <p>检查 Nginx 配置中 <span class="inline-code">proxy_pass</span> 末尾是否多加了 <span class="inline-code">/</span>。后端 context-path 为 <span class="inline-code">/api</span>，必须保留该前缀。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>旧版 GitHub 仓库还能用吗？</h3>
+          <p>旧地址 <span class="inline-code">xiaoxiaoguai-yyds/xxgkami-pro</span> 已失效。请使用新仓库：
+            <a href="https://github.com/xxg-yyds/xxgkami-pro" target="_blank" rel="noopener">xxg-yyds/xxgkami-pro</a>
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>如何获取最新编译包？</h3>
+          <p>前往 <a href="https://github.com/xxg-yyds/xxgkami-pro/releases" target="_blank" rel="noopener">GitHub Releases</a> 下载，或加入官方 QQ 群 1050160397 获取。</p>
+        </div>
+      </section>
+
+      <!-- 联系我们 -->
+      <section id="contact" class="doc-section">
+        <h2>联系我们</h2>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <h4>官方网站</h4>
+            <p><a href="https://www.xxgkami.com/" target="_blank" rel="noopener">www.xxgkami.com</a></p>
+          </div>
+          <div class="feature-item">
+            <h4>体验地址</h4>
+            <p><a href="https://demo.xxgkami.com/" target="_blank" rel="noopener">demo.xxgkami.com</a></p>
+          </div>
+          <div class="feature-item">
+            <h4>QQ 交流群</h4>
+            <p>1050160397（售后 / 技术支持）</p>
+          </div>
+          <div class="feature-item">
+            <h4>联系邮箱</h4>
+            <p>xxgyyds@vip.qq.com</p>
+          </div>
+          <div class="feature-item">
+            <h4>GitHub</h4>
+            <p><a href="https://github.com/xxg-yyds/xxgkami-pro" target="_blank" rel="noopener">xxg-yyds/xxgkami-pro</a></p>
+          </div>
+          <div class="feature-item">
+            <h4>赞助支持</h4>
+            <p><a href="https://ifdian.net/a/xxgyyds" target="_blank" rel="noopener">爱发电赞助</a></p>
+          </div>
+        </div>
+
+        <footer class="doc-footer">
+          <div class="doc-footer-links">
+            <a href="https://www.xxgkami.com/" target="_blank" rel="noopener">官网</a>
+            <a href="https://demo.xxgkami.com/" target="_blank" rel="noopener">体验地址</a>
+            <a href="https://github.com/xxg-yyds/xxgkami-pro" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://gitee.com/xiaoxiaoguai-yyds/xxgkami-pro" target="_blank" rel="noopener">Gitee</a>
+            <a href="https://www.bilibili.com/video/BV1Hs766FE4j" target="_blank" rel="noopener">视频教程</a>
+          </div>
+          <p>2026 小小怪卡密验证系统 · Apache-2.0 开源协议</p>
+        </footer>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
