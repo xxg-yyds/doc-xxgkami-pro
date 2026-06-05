@@ -794,6 +794,65 @@ td {
   line-height: 1.6;
 }
 
+/* Changelog */
+.changelog-version {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.changelog-version:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.changelog-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.changelog-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+.changelog-header time {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.changelog-version h4 {
+  font-size: 0.95rem;
+  margin: 20px 0 10px;
+  color: var(--text);
+}
+
+.changelog-list {
+  margin: 0 0 8px;
+  padding-left: 20px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.changelog-list li {
+  margin-bottom: 8px;
+  line-height: 1.65;
+}
+
+.changelog-list li strong {
+  color: var(--text);
+}
+
+.changelog-summary {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
 @media (max-width: 640px) {
   .workflow-chart {
     flex-direction: column;
